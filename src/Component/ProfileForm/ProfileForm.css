@@ -1,0 +1,91 @@
+.profile-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px; 
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #2A3D71;
+}
+
+.profile-pic {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+}
+
+.profile-pic img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.placehold {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  font-size: 4em;
+  color: #2A3D71;
+}
+
+.yourname {
+  color: white;
+}
+
+.form-fields {
+  display: grid;
+  gap: 15px;
+  width: 100%;
+}
+
+.form-fields div {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: white;
+}
+
+/* .theform لا تحتاج إلى وجودها، يمكنك استخدام .form-fields بدلاً منها */
+.form-fields input,
+.form-fields select,
+.form-fields textarea {
+  padding: 10px; /* إضافة padding لجعل المدخلات تبدو أجمل */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%; /* تأكد من أن المدخلات تأخذ عرض 100% */
+  box-sizing: border-box; /* استخدام box-sizing لتجنب overflow */
+}
+
+.subinfo {
+  padding: 10px 20px;
+  font-size: 1em;
+  color: #fff;
+  background-color: #3e5fbb;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.subinfo:hover {
+  background-color: #395298;
+}
+
+.success-message {
+  margin-top: 20px;
+  color: #f6f7f8;
+  font-weight: bold;
+}

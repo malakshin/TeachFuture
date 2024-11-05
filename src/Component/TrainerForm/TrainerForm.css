@@ -1,0 +1,90 @@
+.trainer-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    height: 100vh; /* جعل الصفحة كاملة الطول */
+    width: 100%; /* التأكد من أن العرض كامل */
+}
+
+.trainer-form-container {
+    display: flex;
+    flex-direction: column; /* تغيير الاتجاه إلى عمودي */
+    width: 100%; /* العرض كامل */
+}
+
+.trainer-transparent-box {
+    background-color: rgba(255, 255, 255, 0.9); /* خلفية شبه شفافة */
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    flex: 1; /* السماح للنموذج بالنمو لملء الحاوية */
+    width: 100%; /* زيادة العرض ليكون 100% */
+    max-width: none; /* إزالة الحد الأقصى لعرض النموذج */
+    max-height: 800px; /* تحديد ارتفاع أقصى للنموذج */
+}
+
+.trainer-image-section {
+    display: flex;
+    justify-content: center; /* توسيط الصورة */
+    align-items: center; /* توسيط الصورة عمودياً */
+    height: auto; /* السماح بارتفاع تلقائي للصورة */
+}
+
+.trainer-image-section img {
+    max-width: 80%; /* تقليل العرض الأقصى للصورة */
+    height: auto; /* الحفاظ على نسبة العرض إلى الارتفاع */
+    max-height: 200px; /* تقليل ارتفاع الصورة الأقصى */
+}
+
+.trainer-title {
+    color: #2A3D71;
+    text-align: left; /* محاذاة العنوان إلى اليسار */
+}
+
+.form-group {
+    margin-bottom: 10px; /* تقليل المسافة بين المجموعات */
+}
+
+.form-group label {
+    font-weight: bold;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%; /* تأكيد أن عرض العناصر كامل */
+    padding: 10px; /* إضافة padding داخلي */
+    margin-top: 5px; /* إضافة مسافة بين label و input */
+    border: 1px solid #ccc; /* حدود خفيفة للحقول */
+    border-radius: 4px; /* زوايا دائرية للحقول */
+}
+
+.submit-btn,
+.upload-btn {
+    padding: 8px 12px; /* تقليل padding للأزرار */
+    font-size: 14px; /* تقليل حجم النص */
+    border: none; /* إزالة الحدود الافتراضية */
+    border-radius: 4px; /* زوايا دائرية */
+    width: 100%; /* تأكيد أن عرض الزرين كامل */
+    cursor: pointer; /* تغيير شكل المؤشر عند التمرير فوق الزر */
+    transition: background-color 0.3s; /* تأثير عند التمرير */
+}
+
+.submit-btn {
+    background-color: #2A3D71; /* لون خلفية زر الإرسال */
+    color: white; /* لون النص */
+}
+
+.upload-btn {
+    background-color: #ccc; /* لون خلفية زر التحميل إلى رمادي */
+    color: black; /* لون النص لزر التحميل */
+}
+
+.submit-btn:hover {
+    background-color: #1a253d; /* لون مختلف عند التمرير لزر الإرسال */
+}
+
+.upload-btn:hover {
+    background-color: #bbb; /* لون مختلف عند التمرير لزر التحميل */
+}
