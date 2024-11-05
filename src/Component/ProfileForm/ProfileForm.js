@@ -17,23 +17,25 @@ const ProfileForm = ({ handleRoleChange, onSubmit }) => {
   const [role, setRole] = useState('');
   const [image, setImage] = useState(null);
   const [message, setMessage] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [password, setPassword] = useState(''); // إضافة حالة كلمة المرور
+  const [confirmPassword, setConfirmPassword] = useState(''); // إضافة حالة تأكيد كلمة المرور
   const [showTrainerForm, setShowTrainerForm] = useState(false); 
   const [thankYouMessage, setThankYouMessage] = useState(false); 
 
+  const handleFirstNameChange = (e) => setFirstName(e.target.value);
+  const handleLastNameChange = (e) => setLastName(e.target.value);
   const handleImageUpload = (e) => setImage(URL.createObjectURL(e.target.files[0]));
   const getInitial = (name) => name ? name.charAt(0).toUpperCase() : 'M';
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
-      setMessage('Passwords do not match');
+      setMessage('Passwords do not match'); // رسالة عند عدم تطابق كلمتي المرور
       return;
     }
     if (role) {
       onSubmit(role);
-      // إعادة تعيين الحقول
+      // تفريغ الحقول بعد الإرسال
       setFirstName('');
       setLastName('');
       setPhoneNumber('');
@@ -46,9 +48,9 @@ const ProfileForm = ({ handleRoleChange, onSubmit }) => {
       setDob('');
       setRole('');
       setImage(null);
-      setPassword('');
-      setConfirmPassword('');
-      setMessage('Profile updated successfully!');
+      setPassword(''); // تفريغ حقل كلمة المرور
+      setConfirmPassword(''); // تفريغ حقل تأكيد كلمة المرور
+      setMessage('Profile updated successfully!'); // رسالة النجاح
     } else {
       setMessage('Please select a role');
     }
@@ -88,7 +90,9 @@ const ProfileForm = ({ handleRoleChange, onSubmit }) => {
       });
   }, []);
 
+  // تحديث الخادم عند تغيير حقل معين
   const handleFieldChange = (field, value) => {
+    // تحديث الحالة المحلية
     switch (field) {
       case 'gender': setGender(value); break;
       case 'city': setCity(value); break;
@@ -96,6 +100,7 @@ const ProfileForm = ({ handleRoleChange, onSubmit }) => {
       case 'language': setLanguage(value); break;
       default: break;
     }
+    // إرسال التحديث للخادم
     axios.put('/api/profile', { [field]: value })
       .catch((error) => {
         console.error(`Error updating ${field}:`, error);
@@ -104,134 +109,110 @@ const ProfileForm = ({ handleRoleChange, onSubmit }) => {
 
   return (
     <div className="profile-form">
-      {!showTrainerForm && !thankYouMessage && (
-        <>
-          <div className="profile-pic">
-            {image ? (
-              <img src={image} alt="Profile" />
-            ) : (
-              <div className="placehold">
-                <span className="initial">{getInitial(firstName)}</span>
-              </div>
-            )}
-            <p className='yourname'>{firstName} {lastName}</p>
-            <input type="file" onChange={handleImageUpload} />
+    {!showTrainerForm && !thankYouMessage && (
+      <>
+      <div className="profile-pic">
+        {image ? (
+          <img src={image} alt="Profile" />
+        ) : (
+          <div className="placehold">
+            <span className="initial">{getInitial(firstName)}</span>
           </div>
+        )}
+        <p className='yourname'>{firstName} {lastName}</p>
+        <input type="file" onChange={handleImageUpload} />
+      </div>
 
-          <form onSubmit={handleSubmit} className="form-fields">
-            <div>
-              <label className="label">First Name</label>
-              <input
-                type="text"
-                value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
-                required
-              />
-            </div>
-            <div>
-              <label className="label">Last Name</label>
-              <input
-                type="text"
-                value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
-                required
-              />
-            </div>
-            <div>
-              <label className="label">Phone Number</label>
-              <input
-                type="text"
-                value={phoneNumber}
-                onChange={(e) => setPhoneNumber(e.target.value)}
-                required
-              />
-            </div>
-            <div>
-              <label className="label">Username</label>
-              <input
-                type="text"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                required
-              />
-            </div>
-            <div>
-              <label className="label">Email</label>
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </div>
-            <div>
-              <label className="label">Gender</label>
-              <select
-                value={gender}
-                onChange={(e) => handleFieldChange('gender', e.target.value)}
-                required
-              >
-                <option value="">Select Gender</option>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-              </select>
-            </div>
-            <div>
-              <label className="label">City</label>
-              <input
-                type="text"
-                value={city}
-                onChange={(e) => handleFieldChange('city', e.target.value)}
-                required
-              />
-            </div>
-            <div>
-              <label className="label">Education Level</label>
-              <input
-                type="text"
-                value={educationLevel}
-                onChange={(e) => handleFieldChange('educationLevel', e.target.value)}
-                required
-              />
-            </div>
-            <div>
-              <label className="label">Language</label>
-              <input
-                type="text"
-                value={language}
-                onChange={(e) => handleFieldChange('language', e.target.value)}
-                required
-              />
-            </div>
-            <div>
-              <label className="label">Date of Birth</label>
-              <input
-                type="date"
-                value={dob}
-                onChange={(e) => setDob(e.target.value)}
-                required
-              />
-            </div>
-            <div>
-              <label className="label">Student or Trainer</label>
-              <select
+      <form onSubmit={handleSubmit} className="form-fields">
+        <div>
+          <label className="label">First name</label>
+          <input className='theform' type="text" value={firstName} onChange={handleFirstNameChange} required />
+        </div>
+        <div>
+          <label className="label">Last name</label>
+          <input className='theform' type="text" value={lastName} onChange={handleLastNameChange} required />
+        </div>
+        <div>
+          <label className="label">Phone Number</label>
+          <input className='theform' type="text" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} required />
+        </div>
+        <div>
+          <label className="label">User name</label>
+          <input className='theform' type="text" value={username} onChange={(e) => setUsername(e.target.value)} required />
+        </div>
+        <div>
+          <label className="label">Email</label>
+          <input className='theform' type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+        </div>
+        <div>
+          <label className="label">Password</label>
+          <input className='theform' type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+        </div>
+        <div>
+          <label className="label">Confirm Password</label>
+          <input className='theform' type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required />
+        </div>
+        <div>
+          <label className='label'>Gender</label>
+          <select className='theform' value={gender} onChange={(e) => handleFieldChange('gender', e.target.value)} required>
+            <option value="" disabled>Gender</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+          </select>
+        </div>
+        <div>
+          <label className='label'>City</label>
+          <select className='theform' value={city} onChange={(e) => handleFieldChange('city', e.target.value)} required>
+            <option value="" disabled>City</option>
+            <option value="Iraq">Iraq</option>
+            <option value="Egypt">Egypt</option>
+            <option value="Lebanon">Lebanon</option>
+            <option value="Morocco">Morocco</option>
+          </select>
+        </div>
+        <div>
+          <label className='label'>Education Level</label>
+          <select className='theform' value={educationLevel} onChange={(e) => handleFieldChange('educationLevel', e.target.value)} required>
+            <option value="" disabled>Education Level</option>
+            <option value="high-school">High School</option>
+            <option value="bachelor">Bachelor's Degree</option>
+            <option value="master">Master's Degree</option>
+            <option value="phd">PhD</option>
+          </select>
+        </div>
+        <div>
+          <label className='label'>Language</label>
+          <select className='theform' value={language} onChange={(e) => handleFieldChange('language', e.target.value)} required>
+            <option value="" disabled>Language</option>
+            <option value="english">English</option>
+            <option value="arabic">Arabic</option>
+            <option value="french">French</option>
+            <option value="spanish">Spanish</option>
+          </select>
+        </div>
+        <div>
+          <label className="label">Date of birth</label>
+          <input className='theform' type="date" value={dob} onChange={(e) => setDob(e.target.value)} required />
+        </div>
+        <div>
+          <label className="label">Student or Trainer</label>
+          <select
                 value={role}
                 onChange={handleRoleSelection}
                 required
               >
-                <option value="">Select</option>
-                <option value="Student">Student</option>
-                <option value="Trainer">Trainer</option>
-              </select>
-            </div>
-            <button className='subinfo' type="submit">Submit</button>
-          </form>
-        </>
-      )}
-
-      {showTrainerForm && <div className="trainer-form"><TrainerForm /></div>} 
-      {thankYouMessage && <div className="success-message">
-        Thank you, your information has been received successfully.</div>} 
+            <option value="">Select</option>
+            <option value="Student">Student</option>
+            <option value="Trainer">Trainer</option>
+          </select>
+        </div>
+        <button className='subinfo' type="submit">Submit</button>
+      </form>
+</>
+    )}
+{showTrainerForm && <div className="trainer-form"><TrainerForm /></div>} 
+{thankYouMessage && <div className="success-message">
+  Thank you, your information has been received successfully.</div>} 
 
       {message && <div className="success-message">{message}</div>}
     </div>
